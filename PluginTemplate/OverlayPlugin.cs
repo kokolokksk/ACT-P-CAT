@@ -4,7 +4,7 @@ using RainbowMage.OverlayPlugin;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace PluginTemplate
+namespace CatPlugin
 {
     /// <summary>
     /// 悬浮窗集成

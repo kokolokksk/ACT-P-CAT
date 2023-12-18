@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PluginTemplate", "PluginTemplate\PluginTemplate.csproj", "{2FAF4AAB-48AB-4F8D-ACDD-50CFE2D1C354}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatPlugin", "PluginTemplate\CatPlugin.csproj", "{2FAF4AAB-48AB-4F8D-ACDD-50CFE2D1C354}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lotlab.PluginCommon", "PluginCommon\PluginCommon\Lotlab.PluginCommon.csproj", "{A7A7A2A9-B3C3-4803-98EC-1A0EEA527390}"
 EndProject

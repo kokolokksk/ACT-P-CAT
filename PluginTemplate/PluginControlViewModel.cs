@@ -1,7 +1,7 @@
 ﻿using Lotlab.PluginCommon;
 using System.Collections.ObjectModel;
 
-namespace PluginTemplate
+namespace CatPlugin
 {
     class PluginControlViewModel : PropertyNotifier
     {

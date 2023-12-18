@@ -1,9 +1,11 @@
 ﻿using Advanced_Combat_Tracker;
+using CatPlugin;
 using Lotlab.PluginCommon.FFXIV;
+using PluginTemplate;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 
-namespace PluginTemplate
+namespace CatTemplate
 {
     public partial class ACTPlugin : IActPluginV1
     {
@@ -61,11 +63,11 @@ namespace PluginTemplate
                 Child = control
             };
 
-            pluginScreenSpace.Text = "PluginTemplate";
+            pluginScreenSpace.Text = "CatPlugin";
             pluginScreenSpace.Controls.Add(host);
 
             // 更新状态标签的内容
-            statusLabel.Text = "Plugin Inited.";
+            statusLabel.Text = "CatPlugin Inited.";
         }
 
         /// <summary>
