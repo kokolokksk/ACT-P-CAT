@@ -4,7 +4,9 @@ using Lotlab.PluginCommon.FFXIV;
 using Newtonsoft.Json.Linq;
 using PluginTemplate;
 using RainbowMage.OverlayPlugin;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 
@@ -21,6 +23,8 @@ namespace CatTemplate
         /// 状态 Label
         /// </summary>
         Label statusLabel { get; set; } = null;
+
+        Elemiao elemiao;
 
         /// <summary>
         /// ACT插件接口 - 初始化插件
@@ -42,7 +46,6 @@ namespace CatTemplate
                 if (ACTPluginProxy.IsFFXIVPlugin(item.pluginObj))
                 {
                     ffxiv = new ACTPluginProxy(item.pluginObj);
-
                     break;
                 }
             }
@@ -56,8 +59,8 @@ namespace CatTemplate
 
             // 注册网络事件
             // Register events
-            ffxiv.DataSubscription.NetworkSent += onNetworkSend;
-            ffxiv.DataSubscription.NetworkReceived += onNetworkReceived;
+            ffxiv.DataSubscription.NetworkSent += OnNetworkSend;
+            ffxiv.DataSubscription.NetworkReceived += OnNetworkReceived;
             ffxiv.DataSubscription.LogLine += onLogLine;
 
             // 初始化UI
@@ -75,8 +78,23 @@ namespace CatTemplate
 
             // 更新状态标签的内容
             statusLabel.Text = "CatPlugin Inited.";
-        }
+            var appDataDir = Path.Combine(ActGlobals.oFormActMain.AppDataFolder.Parent.FullName, "Elemiao");
+            #if DEBUG
+            appDataDir += "Debug";
+            #endif
+            prepareDir(appDataDir);
 
+            elemiao = new Elemiao(actLog, ActGlobals.oFormActMain.AppDataFolder.FullName, appDataDir);
+        }
+        private void actLog(string str)
+        {
+            ActGlobals.oFormActMain.ParseRawLogLine(false, DateTime.Now, str);
+        }
+        void prepareDir(string path)
+        {
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+        }
         /// <summary>
         /// ACT插件接口 - 反初始化插件
         /// </summary>
@@ -85,7 +103,7 @@ namespace CatTemplate
             // 反注册事件
             if (ffxiv != null)
             {
-                ffxiv.DataSubscription.NetworkReceived -= onNetworkReceived;
+                ffxiv.DataSubscription.NetworkReceived -= OnNetworkReceived;
             }
             ffxiv = null;
 
@@ -103,19 +121,19 @@ namespace CatTemplate
         /// <param name="connection"></param>
         /// <param name="epoch"></param>
         /// <param name="message"></param>
-        void onNetworkReceived(string connection, long epoch, byte[] message)
+        void OnNetworkReceived(string connection, long epoch, byte[] message)
         {
-            // todo
+            elemiao.NetworkReceive(message);
         }
 
         private void onLogLine(uint EventType, uint Seconds, string logline)
         {
             if (EventType == 0x00)
             {
-
+                
             }
         }
-        private void onNetworkSend(string connection, long epoch, byte[] message)
+        private void OnNetworkSend(string connection, long epoch, byte[] message)
         {
 
         }
@@ -146,7 +164,7 @@ namespace CatTemplate
             {
                 Name = "喵",
                 Url = "http://localhost:5173/",
-                Size = new int[] { 300, 500 },
+                Size = new int[] { 1600, 500 },
                 Locked = false,
             });
 
